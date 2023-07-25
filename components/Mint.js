@@ -10,7 +10,7 @@ export default function Mint() {
     const [minted, setMinted] = useState(false);
 
     return (
-        <div className="relative overflow-hidden p-12 text-center">
+        <div className="relative overflow-hidden p-12 text-center ">
             <div className="container mx-auto block justify-between items-center">
                 <div className="text-white">
                     <h2 className="text-center text-5xl my-8 font-mono">The Eyes of the Departed</h2>
