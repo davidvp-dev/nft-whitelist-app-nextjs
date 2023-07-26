@@ -1,4 +1,6 @@
 import Image from 'next/image'
+import Link from 'next/link'
+
 import { useWeb3Store } from '@/stores/web3Store';
 import { supportedChains } from '@/constants/supportedChains';
 import shortenAddress from '@/utils/address';
@@ -15,14 +17,14 @@ export default function Header() {
                 </div>
                 {/* Middle Section - Navbar */}
                 <nav className="hidden md:flex space-x-5 w-1/2 justify-center">
-                    <a href="#" className="px-6 text-white text-lg  hover:bg-orange-600 font-mono rounded">Home</a>
-                    <a href="#" className="px-6 text-white text-lg  hover:bg-orange-600 font-mono rounded">Mint</a>
-                    <a href="#" className="px-6 text-white text-lg  hover:bg-orange-600 font-mono rounded">Community</a>
-                    <a href="#" className="px-6 text-white text-lg  hover:bg-orange-600 font-mono rounded">Admin</a>
+                    <Link href="/" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Home</Link>
+                    <Link href="/mint" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Mint</Link>
+                    <Link href="/community" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Community</Link>
+                    <Link href="/admin" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Admin</Link>
                 </nav>
                 {/* Right Section - Connect Button */}
                 <div className="flex items-center w-1/5 justify-center">
-                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono"
+                    <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-primary"
                         onClick={connectWallet}>
                         {
                             errorMessage == "chain not supported"
