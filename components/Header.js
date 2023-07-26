@@ -1,5 +1,4 @@
 import Image from 'next/image'
-import Connect from '../components/Connect'
 
 export default function Header() {
     return (
@@ -17,7 +16,6 @@ export default function Header() {
                     <a href="#" className="text-white text-lg hover:text-blue-200 font-mono">Admin</a>
                 </nav>
                 {/* Right Section - Connect Button */}
-                <Connect />
             </div>
         </header>
     );
