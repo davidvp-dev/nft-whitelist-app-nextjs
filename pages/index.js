@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import Header from '../components/Header'
-import Mint from '../components/Mint'
+import Main from '../components/Main'
 import { Inter } from 'next/font/google'
 import styles from '@/styles/Home.module.css'
 
@@ -19,7 +19,7 @@ export default function Home() {
       {/* Banner for the whole page */}
       <div className="my-banner-bg-class">
         <Header />
-        <Mint />
+        <Main />
       </div>
     </>
   )
