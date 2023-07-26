@@ -14,7 +14,8 @@
     "next": "13.4.12",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "zustand": "^4.3.9"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.14",
