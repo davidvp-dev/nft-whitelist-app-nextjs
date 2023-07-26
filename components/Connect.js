@@ -16,23 +16,21 @@ export default function Connect() {
 
     if (isConnected) {
         return (
-            <div>
-                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono relative" onClick={disconnect}>
-                    {ensName ? `${ensName} (${address})` : shortenAddress(address)}
-                </button>
+            <div className="flex items-center w-1/5 justify-center">
+                <p className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono">{ensName ? `${ensName} (${address})` : shortenAddress(address)}</p>
             </div>
         )
     }
 
     return (
-        <div>
+        <div className="flex items-center w-1/5 justify-center">
             {connectors.map((connector) => (
-                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono relative"
+                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono"
                     disabled={!connector.ready} key={connector.id} onClick={() => connect({ connector })}>
-                    CONNECT
-                    {isLoading &&
-                        connector.id === pendingConnector?.id &&
-                        'connecting...'}
+                    {isLoading && connector.id === pendingConnector?.id
+                        ? 'connecting...'
+                        : 'CONNECT'
+                    }
                 </button>
             ))}
 
