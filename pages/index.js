@@ -14,7 +14,7 @@ export default function Home() {
         <title>Eyes NFT Collection</title>
         <meta name="description" content="Eyes of Departed NFT Collection official website" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/eye.png" />
+        <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* Banner for the whole page */}
       <div className="my-banner-bg-class">
