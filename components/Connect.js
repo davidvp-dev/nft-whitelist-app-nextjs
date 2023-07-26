@@ -9,7 +9,7 @@ import shortenAddress from '@/utils/address'
 
 
 export default function Connect() {
-    const { address, connector, isConnected } = useAccount()
+    const { address, isConnected } = useAccount()
     const { data: ensName } = useEnsName({ address })
     const { connect, connectors, error, isLoading, pendingConnector } = useConnect()
     const { disconnect } = useDisconnect()
@@ -17,8 +17,9 @@ export default function Connect() {
     if (isConnected) {
         return (
             <div>
-                <div>{ensName ? `${ensName} (${address})` : address}</div>
-                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono" onClick={disconnect}>Disconnect</button>
+                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono relative" onClick={disconnect}>
+                    {ensName ? `${ensName} (${address})` : shortenAddress(address)}
+                </button>
             </div>
         )
     }
@@ -26,13 +27,12 @@ export default function Connect() {
     return (
         <div>
             {connectors.map((connector) => (
-                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono"
+                <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-mono relative"
                     disabled={!connector.ready} key={connector.id} onClick={() => connect({ connector })}>
-                    {connector.name}
-                    {!connector.ready && ' (unsupported)'}
+                    CONNECT
                     {isLoading &&
                         connector.id === pendingConnector?.id &&
-                        ' (connecting)'}
+                        'connecting...'}
                 </button>
             ))}
 
