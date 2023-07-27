@@ -8,6 +8,15 @@ import shortenAddress from '@/utils/address';
 export default function Header() {
 
     const { address, isConnected, connectWallet, disconnect, errorMessage } = useWeb3Store();
+
+    const handleConnectButton = () => {
+        if (isConnected) {
+            disconnect();
+        } else {
+            connectWallet();
+        }
+    }
+
     return (
         <header className="py-8">
             <div className="container mx-auto flex justify-between items-center">
@@ -25,7 +34,7 @@ export default function Header() {
                 {/* Right Section - Connect Button */}
                 <div className="flex items-center w-1/5 justify-center">
                     <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded hidden md:block font-primary"
-                        onClick={connectWallet}>
+                        onClick={handleConnectButton}>
                         {
                             errorMessage == "chain not supported"
                                 ? 'Please switch to Sepolia'
