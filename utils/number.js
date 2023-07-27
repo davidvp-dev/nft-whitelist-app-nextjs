@@ -1,3 +1,4 @@
 export default function fixedNumber(number) {
-    return (Number(number) / 1000000000000000000).toFixed(5);
+    const fixedNumber = (Number(number) / 1000000000000000000).toFixed(4);
+    return fixedNumber.replace(/\.?0+$/, ''); //remove trailing zeros
 }
