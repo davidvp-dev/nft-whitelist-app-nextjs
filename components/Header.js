@@ -26,10 +26,10 @@ export default function Header() {
                 </div>
                 {/* Middle Section - Navbar */}
                 <nav className="hidden md:flex space-x-5 w-1/2 justify-center">
-                    <Link href="/" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Home</Link>
-                    <Link href="/mint" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Mint</Link>
-                    <Link href="/community" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Community</Link>
-                    <Link href="/admin" className="px-6 text-white text-lg  hover:bg-orange-600 font-primary rounded">Admin</Link>
+                    <Link href="/" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Home</Link>
+                    <Link href="/mint" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Mint</Link>
+                    <Link href="/community" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Community</Link>
+                    <Link href="/admin" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Admin</Link>
                 </nav>
                 {/* Right Section - Connect Button */}
                 <div className="flex items-center w-1/5 justify-center">
