@@ -6,6 +6,7 @@ import { useWeb3Store } from "@/stores/web3Store";
 import { whitelistContract } from "@/constants/whitelist-abi";
 import { supportedChains } from "@/constants/supportedChains";
 import fixedNumber from "@/utils/number";
+import shortenAddress from "@/utils/address";
 
 export default function Mint() {
 
@@ -13,6 +14,7 @@ export default function Mint() {
     const [contract, setContract] = useState();
     const [balance, setBalance] = useState(0);
     const [isWhitelisted, setIsWhitelisted] = useState(false);
+    const [clickWhitelistEvent, setClickWhitelistEvent] = useState(false);
 
     async function getBalance() {
         if (!contract || !provider) return
@@ -24,17 +26,21 @@ export default function Mint() {
     async function checkWhitelist() {
         if (!contract) return
         if (!supportedChains.includes(chainId)) return
-        setIsWhitelisted(await contract.isWhitelisted(address));
+        const result = await contract.isWhitelisted(address);
+        setIsWhitelisted(result);
+        setClickWhitelistEvent(true);
     }
 
     useEffect(() => {
         const fetchData = async () => {
             const contract = new ethers.Contract(whitelistContract.address, whitelistContract.abi, provider?.getSigner());
             setContract(contract);
-
             getBalance();
+            setIsWhitelisted(false);
+            setClickWhitelistEvent(false);
         }
         fetchData();
+        console.log(address);
     }, [provider, address])
 
     return (
@@ -55,26 +61,53 @@ export default function Mint() {
                     <h4 className="text-center text-xl my-6 font-primary">20 NFT Available</h4>
                     <button
                         type="button"
-                        className="rounded border-4 border-neutral-50 my-6 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600"
+                        className="rounded border-1 my-10 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600"
                         data-te-ripple-init
                         data-te-ripple-color="light">
                         MINT
                     </button>
                 </div>
-                <hr className="my-20 border-1"></hr>
+                <hr className="my-10 border-1"></hr>
                 <div className="text-white">
-                    <h2 className="text-center text-4xl my-32 font-primary">Check if you are in the Whitelist!</h2>
+                    <h2 className="text-center text-4xl py-16 font-primary">Check if you are in the Whitelist!</h2>
                     <h4 className="text-center text-xl my-6 font-primary">
                         {
-                            `Your balance: ${balance}`
+                            `Balance: ${balance} ETH`
                         }
                     </h4>
                     <button
                         type="button"
-                        className="rounded border-4 border-neutral-50 my-6 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600"
+                        className="rounded border-1 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600"
                         onClick={checkWhitelist}>
                         Check Address
                     </button>
+                    {
+                        isWhitelisted && clickWhitelistEvent
+                            ? (
+                                <div>
+                                    <h4 className="text-center text-xl my-6 font-primary text-green-400">
+                                        {
+                                            'Congratulations!'
+                                        }
+                                    </h4>
+                                    <h4 className="text-center text-xl my-6 font-primary text-green-400">
+                                        {
+                                            `${address} is whitelisted`
+                                        }
+                                    </h4>
+                                </div>
+                            ) : !isWhitelisted && clickWhitelistEvent ? (
+                                <div>
+                                    <h4 className="text-center text-xl my-6 font-primary text-red-400">
+                                        {
+                                            'Sorry! Your address is not whitelisted'
+                                        }
+                                    </h4>
+                                </div>
+                            ) : (
+                                null
+                            )
+                    }
                 </div>
             </div>
         </div>
