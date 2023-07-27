@@ -16,8 +16,7 @@ export const useWeb3Store = create((set) => ({
             return set({
                 errorMessage: "please install metamask!"
             })
-        const _provider = new ethers.providers.Web3Provider(window.ethereum) //ethers@5.7.2
-        //const _provider = new ethers.BrowserProvider(window.ethereum) //ethers^6.0.0
+        const _provider = new ethers.providers.Web3Provider(window.ethereum)
         const accounts = await _provider?.send("eth_requestAccounts", [])
         const chainId = await (await _provider.getNetwork()).chainId
         set({
@@ -60,8 +59,7 @@ export const useWeb3Store = create((set) => ({
             return set({
                 errorMessage: "please install metamask!"
             })
-        const _provider = new ethers.providers.Web3Provider(window.ethereum) //ethers@5.7.2
-        //const _provider = new ethers.BrowserProvider(window.ethereum); //ethers^6.0.0
+        const _provider = new ethers.providers.Web3Provider(window.ethereum)
         set({
             provider: _provider,
             errorMessage: ""
