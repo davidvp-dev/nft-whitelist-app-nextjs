@@ -1,6 +1,3 @@
-// Review all methods used with Ethers dependency. Imported code from Ethers V5 but this project uses Ethers V6
-// https://docs.ethers.org/v6/migrating/#migrate-providers
-
 // Use Zustand to manage the state of the React components
 
 import { supportedChains } from "@/constants/supportedChains"
@@ -19,8 +16,8 @@ export const useWeb3Store = create((set) => ({
             return set({
                 errorMessage: "please install metamask!"
             })
-        //const _provider = new ethers.providers.Web3Provider(window.ethereum) ethers@5.7.2
-        const _provider = new ethers.BrowserProvider(window.ethereum) //ethers^6.0.0
+        const _provider = new ethers.providers.Web3Provider(window.ethereum) //ethers@5.7.2
+        //const _provider = new ethers.BrowserProvider(window.ethereum) //ethers^6.0.0
         const accounts = await _provider?.send("eth_requestAccounts", [])
         const chainId = await (await _provider.getNetwork()).chainId
         set({
@@ -63,8 +60,8 @@ export const useWeb3Store = create((set) => ({
             return set({
                 errorMessage: "please install metamask!"
             })
-        //const _provider = new ethers.providers.Web3Provider(window.ethereum) ethers@5.7.2
-        const _provider = new ethers.BrowserProvider(window.ethereum); //ethers^6.0.0
+        const _provider = new ethers.providers.Web3Provider(window.ethereum) //ethers@5.7.2
+        //const _provider = new ethers.BrowserProvider(window.ethereum); //ethers^6.0.0
         set({
             provider: _provider,
             errorMessage: ""
