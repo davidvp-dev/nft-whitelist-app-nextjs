@@ -1,1 +1,1 @@
-export const supportedChains = [11155111] //sepolia
+export const supportedChains = [11155111, 5] //sepolia
