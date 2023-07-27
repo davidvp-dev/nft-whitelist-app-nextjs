@@ -12,13 +12,19 @@ export default function Mint() {
     const { address, provider, chainId } = useWeb3Store();
     const [contract, setContract] = useState();
     const [balance, setBalance] = useState(0);
+    const [isWhitelisted, setIsWhitelisted] = useState(false);
 
     async function getBalance() {
         if (!contract || !provider) return
         if (!supportedChains.includes(chainId)) return
         const providerBalance = Number(await provider.getBalance(address));
-        console.log(providerBalance);
         setBalance(fixedNumber(providerBalance));
+    }
+
+    async function checkWhitelist() {
+        if (!contract) return
+        if (!supportedChains.includes(chainId)) return
+        setIsWhitelisted(await contract.isWhitelisted(address));
     }
 
     useEffect(() => {
@@ -66,8 +72,7 @@ export default function Mint() {
                     <button
                         type="button"
                         className="rounded border-4 border-neutral-50 my-6 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600"
-                        data-te-ripple-init
-                        data-te-ripple-color="light">
+                        onClick={checkWhitelist}>
                         Check Address
                     </button>
                 </div>
