@@ -10,13 +10,14 @@ import shortenAddress from "@/utils/address";
 
 export default function Mint() {
 
-    const { address, provider, chainId } = useWeb3Store();
+    const { address, provider, chainId, isConnected } = useWeb3Store();
     const [contract, setContract] = useState();
     const [balance, setBalance] = useState(0);
     const [isWhitelisted, setIsWhitelisted] = useState(false);
     const [clickWhitelistEvent, setClickWhitelistEvent] = useState(false);
 
     async function getBalance() {
+        setBalance(0);
         if (!contract || !provider) return
         if (!supportedChains.includes(chainId)) return
         const providerBalance = Number(await provider.getBalance(address));
@@ -40,8 +41,7 @@ export default function Mint() {
             setClickWhitelistEvent(false);
         }
         fetchData();
-        console.log(address);
-    }, [provider, address])
+    }, [provider, address, isConnected])
 
     return (
         <div className="relative overflow-hidden p-10 text-center ">
