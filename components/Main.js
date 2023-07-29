@@ -3,15 +3,14 @@ import { useEffect, useState } from "react";
 import { ethers } from "ethers"
 
 import { useWeb3Store } from "@/utils/ethers/web3Store";
-import { whitelistContract } from "@/constants/whitelist-abi";
 import { supportedChains } from "@/constants/supportedChains";
 import fixedNumber from "@/utils/number";
-import shortenAddress from "@/utils/address";
+import { useContractStore } from "@/utils/ethers/contractStore";
 
 export default function Mint() {
 
     const { address, provider, chainId, isConnected } = useWeb3Store();
-    const [contract, setContract] = useState();
+    const { contract } = useContractStore();
     const [balance, setBalance] = useState(0);
     const [isWhitelisted, setIsWhitelisted] = useState(false);
     const [clickWhitelistEvent, setClickWhitelistEvent] = useState(false);
@@ -34,8 +33,6 @@ export default function Mint() {
 
     useEffect(() => {
         const fetchData = async () => {
-            const contract = new ethers.Contract(whitelistContract.address, whitelistContract.abi, provider?.getSigner());
-            setContract(contract);
             getBalance();
             setIsWhitelisted(false);
             setClickWhitelistEvent(false);
@@ -61,7 +58,7 @@ export default function Mint() {
                     <h4 className="text-center text-xl my-6 font-primary">20 NFT Available</h4>
                     <button
                         type="button"
-                        className="rounded border-1 my-10 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600"
+                        className="rounded border-1 my-10 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600 "
                         data-te-ripple-init
                         data-te-ripple-color="light">
                         MINT
