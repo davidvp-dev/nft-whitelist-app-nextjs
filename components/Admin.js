@@ -1,9 +1,7 @@
 import { useState } from 'react'
+import AdminButton from './AdminButton';
 
 export default function Admin() {
-
-    const [isButtonClicked, setIsButtonClicked] = useState(false);
-    const [inputText, setInputText] = useState('');
 
     const handleButtonClick = () => {
         setIsButtonClicked(true);
@@ -28,90 +26,36 @@ export default function Admin() {
         console.log(inputText);
     };
 
+    const addAddressListButtonData = {
+        text: "Add a list of addresses to the whitelist",
+        function: "addAddressList",
+        placeholder: "[ address1, address2, ... ]"
+    };
+
+    const addAddressButtonData = {
+        text: "Add a unique addresses",
+        function: "addAddress",
+        placeholder: "..."
+    }
+
+    const getWhitelistedAddressesButtonData = {
+        text: "Check whitelisted addresses",
+        function: "whitelistedAddresses",
+        placeholder: "..."
+    }
+
     return (
-        <div className="container mx-auto block items-center w-1/2 font-primary">
+        <div className="container mx-auto block items-center w-full font-primary">
             <div className="flex-column items-center justify-center text-center p-20 space-y-8">
-                <div className="w-full m-auto p-2 bg-gray-200  rounded-full font-bold hover:bg-orange-200 transition-all">
-                    {isButtonClicked ? (
-                        <div className="flex flex-col w-full space-y-5" onClick={handleContainerClick}>
-                            <h2 className='uppercase text-2xl my-2'>Add a list of addresses to the whitelist</h2>
-                            <input
-                                type="text"
-                                value={inputText}
-                                onChange={handleInputChange}
-                                className="m-auto p-1 bg-white rounded-lg text-gray-100 text-center text-sm"
-                                placeholder="[address1, address2, ...]"
-                                onClick={(event) => event.stopPropagation()}
-                            />
-                            <button
-                                className="w-1/4 m-auto p-1 bg-white rounded-full hover:bg-blue-400 hover:text-white uppercase"
-                                onClick={handleSubmit}
-                            >
-                                Send Transaction
-                            </button>
-                        </div>
-                    ) : (
-                        <button
-                            className="m-auto p-3 rounded-lg uppercase text-2xl"
-                            onClick={handleButtonClick}
-                        >
-                            Add a list of addresses to the whitelist
-                        </button>
-                    )}
-                </div>
-                <div className="w-full m-auto p-2 bg-gray-200  rounded-full font-bold hover:bg-orange-200 transition-all">
-                    {isButtonClicked ? (
-                        <div className="flex flex-col w-full space-y-5" onClick={handleContainerClick}>
-                            <h2 className='uppercase text-2xl my-2'>Add unique address</h2>
-                            <input
-                                type="text"
-                                value={inputText}
-                                onChange={handleInputChange}
-                                className="m-auto p-1 bg-white text-gray-100 text-center text-sm"
-                                placeholder="..."
-                                onClick={(event) => event.stopPropagation()}
-                            />
-                            <button
-                                className="w-1/4 m-auto p-1 bg-white rounded-full hover:bg-blue-400 hover:text-white uppercase"
-                                onClick={handleSubmit}
-                            >
-                                Send Transaction
-                            </button>
-                        </div>
-                    ) : (
-                        <button
-                            className="m-auto p-3 rounded-lg uppercase text-2xl"
-                            onClick={handleButtonClick}
-                        >
-                            Add unique address
-                        </button>
-                    )}
-                </div>
-                <div className="w-full m-auto p-2 bg-gray-200 rounded-full font-bold hover:bg-orange-200 transition-all">
-                    {isButtonClicked ? (
-                        <div className="flex flex-col w-full space-y-5" onClick={handleContainerClick}>
-                            <h2 className='uppercase text-2xl my-2'>Check whitelisted addresses</h2>
-                            <div className="m-auto p-1 text-gray-400 text-sm">
-                                <p>... list of addresses ...</p>
-                            </div>
-                            <button
-                                className="w-1/4 m-auto p-1 bg-white rounded-full hover:bg-blue-400 hover:text-white uppercase"
-                                onClick={handleSubmit}
-                            >
-                                Send Transaction
-                            </button>
-                        </div>
-                    ) : (
-                        <button
-                            className="m-auto p-3 rounded-lg uppercase text-2xl"
-                            onClick={handleButtonClick}
-                        >
-                            Check whitelisted addresses
-                        </button>
-                    )}
-                </div>
+                <h1 className="text-3xl text-gray-200 uppercase font-bold">Manage the Whitelist panel</h1>
+                <AdminButton buttonData={addAddressListButtonData} />
+                <AdminButton buttonData={addAddressButtonData} />
+                {/* <AdminButton buttonData={getWhitelistedAddressesButtonData} /> */}
                 <hr></hr>
-                <div className="w-full m-auto p-8 bg-red-500 rounded-full">
+                <div className="w-full m-auto p-6 bg-gray-200 rounded-full font-bold hover:bg-orange-200 transition-all">
+                    <h1 className="uppercase text-2xl font-bold">Check whitelisted addresses</h1>
+                </div>
+                <div className="w-full m-auto p-6 bg-red-500 rounded-full">
                     <h1 className="uppercase text-2xl font-bold">Clear whitelist</h1>
                 </div>
             </div>
