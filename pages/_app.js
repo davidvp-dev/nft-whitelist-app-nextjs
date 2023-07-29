@@ -1,4 +1,4 @@
-import { useWeb3Store } from '@/stores/web3Store'
+import { useWeb3Store } from '@/utils/ethers/web3Store'
 import '@/styles/globals.css'
 import { accessListify } from 'ethers'
 import { useEffect } from 'react'

@@ -1,8 +1,11 @@
-// Use Zustand to manage the state of the React components
-
 import { supportedChains } from "@/constants/supportedChains"
 import { ethers } from "ethers"
 import { create } from "zustand"
+
+/* 
+** @dev This file manages the global state of the Web3 dApp: wallet connection, chain, provider information (balance, address...)
+        Using Zustand library to create a set of states that can be used in any component of the application 
+*/
 
 export const useWeb3Store = create((set) => ({
     address: "",

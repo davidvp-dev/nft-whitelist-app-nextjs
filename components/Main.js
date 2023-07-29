@@ -2,7 +2,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers"
 
-import { useWeb3Store } from "@/stores/web3Store";
+import { useWeb3Store } from "@/utils/ethers/web3Store";
 import { whitelistContract } from "@/constants/whitelist-abi";
 import { supportedChains } from "@/constants/supportedChains";
 import fixedNumber from "@/utils/number";

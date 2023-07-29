@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { useWeb3Store } from '@/stores/web3Store';
+import { useWeb3Store } from '@/utils/ethers/web3Store';
 import { supportedChains } from '@/constants/supportedChains';
 import shortenAddress from '@/utils/address';
 
