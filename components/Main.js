@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ethers } from "ethers"
 
@@ -7,7 +8,7 @@ import { supportedChains } from "@/constants/supportedChains";
 import fixedNumber from "@/utils/number";
 import { useContractStore } from "@/utils/ethers/contractStore";
 
-export default function Mint() {
+export default function Main() {
 
     const { address, provider, chainId, isConnected } = useWeb3Store();
     const { contract } = useContractStore();
@@ -51,18 +52,15 @@ export default function Mint() {
                             alt="pexels"
                             width={300}
                             height={300}
-                            className="rounded-xl"
+                            className="rounded-xl opacity-85"
                         />
                     </div>
                     <h4 className="text-center text-xl my-6 font-primary">Mint a NFT from the Eyes of the Departed NFT Collection and join the community to receive special offerings.</h4>
                     <h4 className="text-center text-xl my-6 font-primary">20 NFT Available</h4>
-                    <button
-                        type="button"
-                        className="rounded border-1 my-10 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600 "
-                        data-te-ripple-init
-                        data-te-ripple-color="light">
+                    <Link href="/mint"
+                        className="rounded border-1 my-10 px-7 pb-[8px] pt-[10px] text-xl font-primary bg-blue-600 ">
                         MINT
-                    </button>
+                    </Link>
                 </div>
                 <hr className="my-10 border-1"></hr>
                 <div className="text-white">
