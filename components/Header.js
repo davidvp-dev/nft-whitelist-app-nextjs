@@ -2,12 +2,13 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import { useWeb3Store } from '@/utils/ethers/web3Store';
-import { supportedChains } from '@/constants/supportedChains';
+import { useContractStore } from '@/utils/ethers/contractStore';
 import shortenAddress from '@/utils/address';
 
 export default function Header() {
 
     const { address, isConnected, connectWallet, disconnect, errorMessage } = useWeb3Store();
+    const { owner } = useContractStore();
 
     const handleConnectButton = () => {
         if (isConnected) {
@@ -16,6 +17,7 @@ export default function Header() {
             connectWallet();
         }
     }
+    const areEqualIgnoreCase = (str1, str2) => str1.toLowerCase() === str2.toLowerCase();
 
     return (
         <header className="py-8">
@@ -29,7 +31,12 @@ export default function Header() {
                     <Link href="/" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Home</Link>
                     <Link href="/mint" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Mint</Link>
                     <Link href="/community" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Community</Link>
-                    <Link href="/admin" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Admin</Link>
+                    {
+                        areEqualIgnoreCase(address, owner) ?
+                            (
+                                <Link href="/admin" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Admin Panel</Link>
+                            ) : null
+                    }
                 </nav>
                 {/* Right Section - Connect Button */}
                 <div className="flex items-center w-1/5 justify-center">

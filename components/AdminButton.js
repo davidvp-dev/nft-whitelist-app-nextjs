@@ -1,7 +1,9 @@
 import { useState } from 'react'
+import { useContractStore } from '@/utils/ethers/contractStore';
 
 export default function AdminButton({ buttonData }) {
 
+    const { contract, owner } = useContractStore();
     const [isButtonClicked, setIsButtonClicked] = useState(false);
     const [inputText, setInputText] = useState('');
 
@@ -21,8 +23,9 @@ export default function AdminButton({ buttonData }) {
     };
 
     const sendTransaction = (event) => {
-        // Do something with the inputText (e.g., call an API, perform an action)
-        console.log(inputText);
+        if (!contract) return
+        console.log(contract);
+        contract.addAddress(inputText);
     };
 
     return (
