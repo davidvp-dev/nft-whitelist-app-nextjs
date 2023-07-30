@@ -1,11 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { ethers } from "ethers"
 
 import { useWeb3Store } from "@/utils/ethers/web3Store";
 import { supportedChains } from "@/constants/supportedChains";
-import fixedNumber from "@/utils/number";
 import { useContractStore } from "@/utils/ethers/contractStore";
 
 export default function Main() {

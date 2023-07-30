@@ -20,8 +20,6 @@ export default function Mint() {
         <div className="flex flex-col items-center font-primary space-y-12 p-16">
             <h1 className="text-3xl text-gray-200 uppercase font-bold">Mint NFT</h1>
             <div className="bg-gray-300 p-4 opacity-80 rounded-lg shadow-md flex flex-col items-center">
-                {/* <img src="/eye.png" alt="NFT" className="w-max h-max mx-auto mb-4" />
-                 <span*/}
                 <Image
                     src="/eye.png"
                     alt="pexels"
@@ -47,7 +45,6 @@ export default function Mint() {
             </div>
             <button
                 className="px-8 py-3 bg-orange-200 rounded-full hover:bg-blue-400 hover:text-white uppercase font-bold text-2xl"
-                // className="px-8 py-3 rounded-full bg-green-500 text-white font-bold text-lg focus:outline-none"
                 onClick={handleMint}
             >
                 Mint
