@@ -10,19 +10,10 @@ import { useContractStore } from "@/utils/ethers/contractStore";
 
 export default function Main() {
 
-    const { address, provider, chainId, isConnected } = useWeb3Store();
+    const { address, provider, chainId, isConnected, balance } = useWeb3Store();
     const { contract } = useContractStore();
-    const [balance, setBalance] = useState(0);
     const [isWhitelisted, setIsWhitelisted] = useState(false);
     const [clickWhitelistEvent, setClickWhitelistEvent] = useState(false);
-
-    async function getBalance() {
-        setBalance(0);
-        if (!contract || !provider) return
-        if (!supportedChains.includes(chainId)) return
-        const providerBalance = Number(await provider.getBalance(address));
-        setBalance(fixedNumber(providerBalance));
-    }
 
     async function checkWhitelist() {
         if (!contract) return
@@ -34,7 +25,6 @@ export default function Main() {
 
     useEffect(() => {
         const fetchData = async () => {
-            getBalance();
             setIsWhitelisted(false);
             setClickWhitelistEvent(false);
         }
