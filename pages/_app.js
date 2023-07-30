@@ -1,56 +1,48 @@
+import { useWeb3Store } from '@/utils/ethers/web3Store'
+import { useContractStore } from '@/utils/ethers/contractStore';
+import { whitelistContract } from "@/constants/whitelist-abi";
 import '@/styles/globals.css'
+import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
-import { WagmiConfig, createConfig, configureChains, mainnet } from 'wagmi'
-import { useAccount, useConnect, useDisconnect, useBalance } from 'wagmi'
 
-import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from 'wagmi/connectors/injected'
-import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
-
-// Configure chains & providers with the Alchemy provider.
-// Two popular providers are Alchemy (alchemy.com) and Infura (infura.io)
-const { chains, publicClient, webSocketPublicClient } = configureChains(
-  [mainnet],
-  [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: "https://snowy-thrilling-glade.ethereum-sepolia.discover.quiknode.pro/e477152fa18bd551832264c0cb5411cfda3e63df/"
-      })
-    })
-  ],
-)
-
-// Set up wagmi config
-const config = createConfig({
-  autoConnect: true,
-  connectors: [
-    new InjectedConnector({
-      chains,
-      options: {
-        name: 'Injected',
-        shimDisconnect: true,
-      },
-    }),
-  ],
-  publicClient,
-  webSocketPublicClient,
-})
 
 export default function App({ Component, pageProps }) {
-  const [hasMounted, setHasMounted] = useState(false);
 
+  const { changeAddress, changeChainId, setProvider, chainId, provider, address } = useWeb3Store()
+  const { setContract } = useContractStore()
+  //const [contract, setContract] = useState();
+  /** 
+   * useEffect code is executed after the component has rendered. 
+   * It runs after every renfer by default, but we can control it by providing a dependency array as the second argument
+  **/
   useEffect(() => {
-    setHasMounted(true);
-  }, []);
+    setProvider()
+    if (!window.ethereum) return
 
-  if (!hasMounted) {
-    return null;
-  }
+    window.ethereum.on("accountsChanged", (account) => {
+      changeAddress(account[0]);
+    })
+
+    window.ethereum.on("chainChanged", (newChainId) => {
+      changeChainId(Number(newChainId));
+    })
+
+    const loadContract = async () => {
+      try {
+        const contract = new ethers.Contract(whitelistContract.address, whitelistContract.abi, provider?.getSigner());
+        setContract(contract);
+      } catch (error) {
+        console.error('Error loading contract', error);
+      }
+    };
+
+    loadContract();
+
+    return () => {
+    }
+  }, [chainId, address])
 
   return (
-    <WagmiConfig config={config}>
-      <Component {...pageProps} />
-    </WagmiConfig>
+    <Component {...pageProps} />
   )
 }

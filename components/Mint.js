@@ -1,42 +1,57 @@
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { useState } from "react";
-//import { useAccount, useContract, useSigner, useNetwork } from "wagmi";
-//const mintAbi = require("../contract/abi.json");
-//import Connect from "./Connect";
 
 export default function Mint() {
-    const [minting, setMinting] = useState(false);
-    const [minted, setMinted] = useState(false);
+    const [quantity, setQuantity] = useState(1);
 
+    const handleDecrease = () => {
+        setQuantity((prevQuantity) => Math.max(prevQuantity - 1, 1));
+    };
+
+    const handleIncrease = () => {
+        setQuantity((prevQuantity) => prevQuantity + 1);
+    };
+
+    const handleMint = () => {
+        // Handle the minting functionality here
+        // Add your logic to interact with the contract and mint NFTs
+    };
     return (
-        <div className="relative overflow-hidden p-12 text-center ">
-            <div className="container mx-auto block justify-between items-center">
-                <div className="text-white">
-                    <h2 className="text-center text-5xl my-8 font-mono">The Eyes of the Departed</h2>
-                    <div className="flex justify-center">
-                        <div className="animate__animated animate__rubberBand">
-                            {" "}
-                            <Image
-                                src="/eye.png"
-                                alt="pexels"
-                                width={300}
-                                height={300}
-                                className="rounded-xl"
-                            />
-                        </div>
-                    </div>
-                    <h4 className="text-center text-xl my-6 font-mono">Mint a NFT from the Eyes of the Departed NFT Collection and join the community.
-                        Only 20 available!</h4>
-                    <button
-                        type="button"
-                        className="rounded border-2 border-neutral-50 px-7 pb-[8px] pt-[10px] text-sm font-medium uppercase leading-normal text-neutral-50 transition duration-350 ease-in-out hover:border-neutral-100 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-neutral-100 focus:border-neutral-100 focus:text-neutral-100 focus:outline-none focus:ring-0 active:border-neutral-200 active:text-neutral-200 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
-                        data-te-ripple-init
-                        data-te-ripple-color="light">
-                        MINT
-                    </button>
-                </div>
+        <div className="flex flex-col items-center font-primary space-y-12 p-16">
+            <h1 className="text-3xl text-gray-200 uppercase font-bold">Mint NFT</h1>
+            <div className="bg-gray-300 p-4 opacity-80 rounded-lg shadow-md flex flex-col items-center">
+                {/* <img src="/eye.png" alt="NFT" className="w-max h-max mx-auto mb-4" />
+                 <span*/}
+                <Image
+                    src="/eye.png"
+                    alt="pexels"
+                    width={300}
+                    height={300}
+                    className="w-max h-max mx-auto mb-4"
+                />
             </div>
+            <div className="flex items-center my-4">
+                <button
+                    className="w-full m-auto p-2 bg-gray-200  rounded-full font-bold hover:bg-orange-200 transition-all"
+                    onClick={handleDecrease}
+                >
+                    -
+                </button>
+                <p className="text-3xl text-gray-200 uppercase font-bold mx-8">{quantity}</p>
+                <button
+                    className="w-full m-auto p-2 bg-gray-200  rounded-full font-bold hover:bg-orange-200 transition-all"
+                    onClick={handleIncrease}
+                >
+                    +
+                </button>
+            </div>
+            <button
+                className="px-8 py-3 bg-orange-200 rounded-full hover:bg-blue-400 hover:text-white uppercase font-bold text-2xl"
+                // className="px-8 py-3 rounded-full bg-green-500 text-white font-bold text-lg focus:outline-none"
+                onClick={handleMint}
+            >
+                Mint
+            </button>
         </div>
     );
 }
