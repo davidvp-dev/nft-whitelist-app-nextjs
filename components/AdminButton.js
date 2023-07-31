@@ -3,7 +3,7 @@ import { useContractStore } from '@/utils/ethers/contractStore';
 
 export default function AdminButton({ buttonData }) {
 
-    const { contract, owner } = useContractStore();
+    const { contract } = useContractStore();
     const [isButtonClicked, setIsButtonClicked] = useState(false);
     const [inputText, setInputText] = useState('');
     const [contractResponse, setContractResponse] = useState();

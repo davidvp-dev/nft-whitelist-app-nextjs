@@ -1,7 +1,16 @@
 import Image from "next/image";
-import { useState } from "react";
+import { ethers } from "ethers";
+
+import { useEffect, useState } from "react";
+import { useContractStore } from "@/utils/ethers/contractStore";
+import { useWeb3Store } from "@/utils/ethers/web3Store";
 
 export default function Mint() {
+    /* Web3 store data */
+    const { contract } = useContractStore();
+    const { isConnected } = useWeb3Store();
+    const [contractResponse, setContractResponse] = useState();
+    const [price, setPrice] = useState(0);
     const [quantity, setQuantity] = useState(1);
 
     const handleDecrease = () => {
@@ -12,10 +21,30 @@ export default function Mint() {
         setQuantity((prevQuantity) => prevQuantity + 1);
     };
 
-    const handleMint = () => {
-        // Handle the minting functionality here
+    const handleMint = async () => {
         // Add your logic to interact with the contract and mint NFTs
+        //setContractResponse(await contract.mint())
     };
+
+    async function getFloorPrice() {
+        if (!contract.provider) return;
+        console.log(contract);
+        const price = Number(await contract.floorPrice());
+        const ethPrice = ethers.utils.formatUnits(price, "ether");
+        setPrice(ethPrice);
+    }
+
+    useEffect(() => {
+        if (!isConnected || !contract) {
+            return;
+        } else {
+            const fetchData = async () => {
+                getFloorPrice();
+            }
+            fetchData();
+        }
+    }, [contract])
+
     return (
         <div className="flex flex-col items-center font-primary space-y-12 p-16">
             <h1 className="text-3xl text-gray-200 uppercase font-bold">Mint NFT</h1>
@@ -49,6 +78,13 @@ export default function Mint() {
             >
                 Mint
             </button>
+            {
+                isConnected ? (
+                    <p className="text-2xl text-gray-200">
+                        {`Price: ${price} ETH`}
+                    </p>
+                ) : null
+            }
         </div>
     );
 }

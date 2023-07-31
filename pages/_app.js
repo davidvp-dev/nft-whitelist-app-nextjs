@@ -32,7 +32,6 @@ export default function App({ Component, pageProps }) {
     };
 
     loadContract();
-
     return () => {
     }
   }, [chainId, address])
