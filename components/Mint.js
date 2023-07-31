@@ -22,27 +22,32 @@ export default function Mint() {
     };
 
     const handleMint = async () => {
+        if (!contract.provider) return;
+        try {
+            const ethAmount = ethers.utils.parseEther(price);
+            const transaction = await contract.mint(quantity, { value: ethAmount });
+            await transaction.wait();
+            console.log(transaction);
+        } catch (e) {
+            alert(e);
+        }
         // Add your logic to interact with the contract and mint NFTs
         //setContractResponse(await contract.mint())
     };
 
     async function getFloorPrice() {
         if (!contract.provider) return;
-        console.log(contract);
-        const price = Number(await contract.floorPrice());
-        const ethPrice = ethers.utils.formatUnits(price, "ether");
+        const price = Number(await contract.floorPrice()); // retrieve floorPrice from contract
+        const ethPrice = ethers.utils.formatUnits(price, "ether"); //convert Wei to ETH
         setPrice(ethPrice);
     }
 
     useEffect(() => {
-        if (!isConnected || !contract) {
-            return;
-        } else {
-            const fetchData = async () => {
-                getFloorPrice();
-            }
-            fetchData();
+        if (!contract.provider) return;
+        const fetchData = async () => {
+            getFloorPrice();
         }
+        fetchData();
     }, [contract])
 
     return (
