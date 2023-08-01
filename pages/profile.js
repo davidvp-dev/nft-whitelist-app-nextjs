@@ -1,11 +1,10 @@
-import Head from "next/head"
 import Image from "next/image"
+import Head from "next/head";
 
 import Header from "@/components/Header"
-import Main from "@/components/Main"
-import Admin from "@/components/Admin"
+import Profile from "@/components/Profile";
 
-export default function AdminPage() {
+export default function ProfilePage() {
     return (
         /* Banner for the whole page */
         <div className="my-banner-bg-class">
@@ -16,8 +15,7 @@ export default function AdminPage() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Header />
-            <Admin />
-        </div >
-
-    );
+            <Profile />
+        </div>
+    )
 }
