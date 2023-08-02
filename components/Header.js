@@ -31,6 +31,7 @@ export default function Header() {
                     <Link href="/" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Home</Link>
                     <Link href="/mint" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Mint</Link>
                     <Link href="/community" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Community</Link>
+                    <Link href="/profile" className="px-6 text-white text-lg hover:text-black hover:bg-orange-200 font-primary rounded">Profile</Link>
                     {
                         areEqualIgnoreCase(address, owner) ?
                             (
