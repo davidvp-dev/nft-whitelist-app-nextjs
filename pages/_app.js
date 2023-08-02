@@ -11,9 +11,11 @@ export default function App({ Component, pageProps }) {
   const { setContract } = useContractStore()
 
   useEffect(() => {
-    setProvider()
-    if (!window.ethereum) return
-
+    // setProvider()
+    if (!window.ethereum) {
+      console.log('AAAA');
+      return;
+    }
     window.ethereum.on("accountsChanged", (account) => {
       changeAddress(account[0]);
     })
@@ -23,6 +25,8 @@ export default function App({ Component, pageProps }) {
     })
 
     const loadContract = async () => {
+      await setProvider();
+      console.log(provider);
       try {
         const contract = new ethers.Contract(eyesNFTContract.address, eyesNFTContract.abi, provider?.getSigner());
         setContract(contract);
